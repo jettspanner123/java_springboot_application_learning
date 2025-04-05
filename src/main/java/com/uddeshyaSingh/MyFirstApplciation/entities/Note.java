@@ -1,7 +1,7 @@
 package com.uddeshyaSingh.MyFirstApplciation.entities;
 
 public class Note {
-    private String id;
+    private final String id = java.util.UUID.randomUUID().toString().substring(20);
     private String heading;
     private String description;
     private Boolean isCompleted;

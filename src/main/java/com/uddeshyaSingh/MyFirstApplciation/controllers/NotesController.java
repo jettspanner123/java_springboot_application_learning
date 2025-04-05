@@ -1,5 +1,6 @@
 package com.uddeshyaSingh.MyFirstApplciation.controllers;
 
+import com.uddeshyaSingh.MyFirstApplciation.HelperFunctions.HelperFunction;
 import com.uddeshyaSingh.MyFirstApplciation.entities.Note;
 import com.uddeshyaSingh.MyFirstApplciation.entities.NotesPostResponse;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +22,12 @@ import com.uddeshyaSingh.MyFirstApplciation.entities.NotesGetResponse;
         if(this.notes.containsKey(_note.getId())) return new NotesGetResponse(false, "Note id " + _note.getId() + " already exists");
         this.notes.put(_note.getId(), _note);
         return new NotesGetResponse(true, "Note id " + _note.getId() + " added");
+    }
+
+    @DeleteMapping("/remove/{_id}") public NotesGetResponse removeNote(@PathVariable("_id") String _id) {
+        if(!this.notes.containsKey(_id)) return new NotesGetResponse(false, HelperFunction.DoesNotExist(_id));
+        this.notes.remove(_id);
+        return new NotesGetResponse(true, "Note id " + _id + " removed!");
     }
 
 }
