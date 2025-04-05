@@ -1,6 +1,7 @@
 package com.uddeshyaSingh.MyFirstApplciation.controllers;
 
 import com.uddeshyaSingh.MyFirstApplciation.entities.Note;
+import com.uddeshyaSingh.MyFirstApplciation.entities.NotesPostResponse;
 import org.springframework.web.bind.annotation.*;
 import com.uddeshyaSingh.MyFirstApplciation.entities.NotesGetResponse;
 
@@ -11,7 +12,10 @@ import com.uddeshyaSingh.MyFirstApplciation.entities.NotesGetResponse;
         return new java.util.ArrayList<>(notes.values());
     }
 
-//    @GetMapping("/get_notes/{_it}") public 0
+    @GetMapping("/get_note/{_id}") public NotesPostResponse getNoteById(@PathVariable("_id") String _id) {
+        if(!this.notes.containsKey(_id)) return new NotesPostResponse(false, "Note not found with id: " + _id, null);
+        return new NotesPostResponse(true, "Note found with id: " + _id, this.notes.get(_id));
+    }
 
     @PostMapping("/add_note") public NotesGetResponse addNote(@RequestBody Note _note) {
         if(this.notes.containsKey(_note.getId())) return new NotesGetResponse(false, "Note id " + _note.getId() + " already exists");
