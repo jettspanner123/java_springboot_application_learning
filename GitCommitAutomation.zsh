@@ -11,7 +11,7 @@ commit_message="readme edit"
 do_commit_function() {
   if git status --porcelain | grep .; then
     echo "Change detected, attempthing commit...."
-    git add *
+    git add * --force
     git commit -m "$commit_message"
     echo "Git commit successful. Attempthing Push.."
     git push -u origin main 
